@@ -1,7 +1,11 @@
-import React from "react";
+import Search from "./Search/Search";
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <Search />
+    </>
+  );
 };
 
 export default Home;
