@@ -1,11 +1,19 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 let GlobalContext = createContext();
 
 const Context = ({ children }) => {
-  return <GlobalContext.Provider> {children} </GlobalContext.Provider>;
+  let [searchResult, setSearchResult] = useState();
+
+  const contextValue = { setSearchResult };
+
+  return (
+    <GlobalContext.Provider value={contextValue}>
+      {children}
+    </GlobalContext.Provider>
+  );
 };
 
 const CustomContext = () => {
