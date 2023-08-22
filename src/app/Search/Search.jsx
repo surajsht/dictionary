@@ -6,15 +6,17 @@ import { CustomContext } from "../Context/Context";
 const Search = () => {
   let [searchValue, setSearchValue] = useState("");
 
-  let { setSearchResult } = CustomContext();
+  let { setSearchResult, setLoading } = CustomContext();
 
   const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
   const SearchWord = async () => {
     try {
-      const resp = await fetch(`${url}${searchValue}`);
+      console.log(`${url}${searchValue}`);
+      const resp = await fetch(`${url}${searchValue}`, { cache: "no-store" });
       const data = await resp.json();
       setSearchResult(data);
+      setLoading(true);
     } catch (e) {
       console.error(e);
     }

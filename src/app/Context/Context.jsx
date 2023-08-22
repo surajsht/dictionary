@@ -6,8 +6,9 @@ let GlobalContext = createContext();
 
 const Context = ({ children }) => {
   let [searchResult, setSearchResult] = useState([]);
+  let [loading, setLoading] = useState(false);
 
-  const contextValue = { searchResult, setSearchResult };
+  const contextValue = { searchResult, setSearchResult, loading, setLoading };
 
   return (
     <GlobalContext.Provider value={contextValue}>
