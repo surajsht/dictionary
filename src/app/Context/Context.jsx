@@ -5,9 +5,9 @@ import { createContext, useContext, useState } from "react";
 let GlobalContext = createContext();
 
 const Context = ({ children }) => {
-  let [searchResult, setSearchResult] = useState();
+  let [searchResult, setSearchResult] = useState([]);
 
-  const contextValue = { setSearchResult };
+  const contextValue = { searchResult, setSearchResult };
 
   return (
     <GlobalContext.Provider value={contextValue}>
