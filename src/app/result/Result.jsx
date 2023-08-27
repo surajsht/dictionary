@@ -1,6 +1,6 @@
 "use client";
 
-import { createRef } from "react";
+import { createRef, useEffect } from "react";
 import { CustomContext } from "../Context/Context";
 import { GiSpeaker } from "react-icons/gi";
 
@@ -8,13 +8,22 @@ const Result = () => {
   let { loading, searchResult } = CustomContext();
   let audioRef = createRef();
 
+  useEffect(() => {
+    if (searchResult[0]?.phonetics[0]?.audio) {
+      audioRef.current.src = searchResult[0]?.phonetics[0]?.audio;
+    }
+    console.log(searchResult);
+  }, [searchResult]);
+
   let playAudio = () => {
     audioRef.current.play();
   };
 
+  if (!loading) return;
+
   return (
     <div className="container">
-      {loading ? (
+      {searchResult.length > 0 ? (
         <div>
           <div>
             <div>
@@ -22,9 +31,11 @@ const Result = () => {
 
               <span> {searchResult[0]?.phonetic} </span>
 
-              <button onClick={() => playAudio()}>
-                <GiSpeaker />
-              </button>
+              {searchResult[0]?.phonetics[0]?.audio && (
+                <button onClick={() => playAudio()}>
+                  <GiSpeaker />
+                </button>
+              )}
 
               <audio ref={audioRef}>
                 <source
@@ -88,7 +99,9 @@ const Result = () => {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <h2> No search found </h2>
+      )}
     </div>
   );
 };
