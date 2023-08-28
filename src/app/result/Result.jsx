@@ -25,79 +25,51 @@ const Result = () => {
     <div className="container">
       {searchResult.length > 0 ? (
         <div>
-          <div>
-            <div>
-              <h2> {searchResult[0]?.word} </h2>
+          {searchResult.map((item, itemIdx) => {
+            return (
+              <div>
+                <div>
+                  <h2> {item?.word} </h2>
 
-              <span> {searchResult[0]?.phonetic} </span>
+                  <span> {item?.phonetic} </span>
 
-              {searchResult[0]?.phonetics[0]?.audio && (
-                <button onClick={() => playAudio()}>
-                  <GiSpeaker />
-                </button>
-              )}
+                  {item?.phonetics[0]?.audio && (
+                    <button onClick={() => playAudio()}>
+                      <GiSpeaker />
+                    </button>
+                  )}
 
-              <audio ref={audioRef}>
-                <source
-                  src={`${searchResult[0]?.phonetics[0]?.audio}`}
-                  type="audio/mpeg"
-                />
-                Your browser does not support the audio element.
-              </audio>
-            </div>
+                  <audio ref={audioRef}>
+                    <source
+                      src={`${item?.phonetics[0]?.audio}`}
+                      type="audio/mpeg"
+                    />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
 
-            <div>{searchResult[0]?.meanings[0]?.partOfSpeech}</div>
+                <div>{item?.meanings[0]?.partOfSpeech}</div>
 
-            <div>
-              {`Synonyms : ${searchResult[0]?.meanings[0]?.synonyms.toString()}`}
-            </div>
-
-            <div>
-              <ul>
-                {searchResult[0]?.meanings[0]?.definitions.map(
-                  (meaning, meaningIdx) => {
-                    return <li key={meaningIdx}> {meaning?.definition} </li>;
-                  }
+                {item?.meanings[0]?.synonyms.length > 0 && (
+                  <div>
+                    {`Synonyms : ${item?.meanings[0]?.synonyms.toString()}`}
+                  </div>
                 )}
-              </ul>
-            </div>
-          </div>
 
-          <div>
-            <div>{searchResult[0]?.meanings[1]?.partOfSpeech}</div>
-
-            <div>
-              {`Synonyms : ${searchResult[0]?.meanings[1]?.synonyms.toString()}`}
-            </div>
-
-            <div>
-              <ul>
-                {searchResult[0]?.meanings[1]?.definitions.map(
-                  (meaning, meaningIdx) => {
-                    return <li key={meaningIdx}> {meaning?.definition} </li>;
-                  }
-                )}
-              </ul>
-            </div>
-          </div>
-
-          <div>
-            <div>{searchResult[0]?.meanings[2]?.partOfSpeech}</div>
-
-            <div>
-              {`Synonyms : ${searchResult[0]?.meanings[2]?.synonyms.toString()}`}
-            </div>
-
-            <div>
-              <ul>
-                {searchResult[0]?.meanings[2]?.definitions.map(
-                  (meaning, meaningIdx) => {
-                    return <li key={meaningIdx}> {meaning?.definition} </li>;
-                  }
-                )}
-              </ul>
-            </div>
-          </div>
+                <div>
+                  <ul>
+                    {item?.meanings[0]?.definitions.map(
+                      (meaning, meaningIdx) => {
+                        return (
+                          <li key={meaningIdx}> {meaning?.definition} </li>
+                        );
+                      }
+                    )}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
         </div>
       ) : (
         <h2> No search found </h2>
