@@ -26,12 +26,13 @@ const Search = () => {
   return (
     <div className="container">
       <form
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 sm:flex sm:gap-4"
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-10 mt-8 sm:flex sm:gap-4"
         onSubmit={(e) => SearchWord(e)}
       >
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4 sm:w-[80%] sm:mb-0"
           type="text"
+          placeholder="Search a word"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
